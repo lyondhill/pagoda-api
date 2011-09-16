@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.version     = Pagoda::VERSION
   s.authors     = ["Lyon"]
   s.email       = ["lyon@delorum.com"]
-  s.homepage    = "www.pagodabox.com"
+  s.homepage    = "http://www.pagodabox.com"
   s.summary     = %q{summary}
   s.description = %q{description}
 
