@@ -1,4 +1,4 @@
-require "pagoda-api/version"
+require "pagoda-client/version"
 
 module Pagoda
   module Api

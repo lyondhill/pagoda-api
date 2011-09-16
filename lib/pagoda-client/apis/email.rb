@@ -1,6 +1,6 @@
 module Pagoda::Api
-  module App
+  module Email
 
-    
+
   end
 end
