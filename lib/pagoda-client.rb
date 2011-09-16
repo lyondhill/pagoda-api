@@ -1,4 +1,4 @@
-require "pagoda-client/version"
+require 'pagoda-client/client'
 
 module Pagoda
   # Your code goes here...

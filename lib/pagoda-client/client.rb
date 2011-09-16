@@ -3,16 +3,21 @@ require 'rest_client'
 
   # Mix-In's
 require 'pagoda-client/apis/app'
-# require 'pagoda-client/apis/user'
-# require 'pagoda-client/apis/componant'
-# require 'pagoda-client/apis/billing'
-# require 'pagoda-client/apis/email'
-# require 'pagoda-client/apis/collaborator'
+require 'pagoda-client/apis/user'
+require 'pagoda-client/apis/componant'
+require 'pagoda-client/apis/billing'
+require 'pagoda-client/apis/email'
+require 'pagoda-client/apis/collaborator'
 
 module Pagoda
   class Client
-    
+    VERSION = "0.0.1"
     include Api::App
+    include Api::User
+    include Api::Componant
+    include Api::Billing
+    include Api::Email
+    include Api::Collaborator
 
     attr_reader :user, :password
 
@@ -83,7 +88,7 @@ module Pagoda
     end
     
     def json(content)
-      JSON.parse(content, symbolize_names: true)
+      JSON.parse(content, :symbolize_names => true)
     end
 
   end  

@@ -1,10 +1,9 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
-require "pagoda-client/version"
 
 Gem::Specification.new do |s|
   s.name        = "pagoda-client"
-  s.version     = Pagoda::VERSION
+  s.version     = "0.0.1"
   s.authors     = ["Lyon"]
   s.email       = ["lyon@delorum.com"]
   s.homepage    = "http://www.pagodabox.com"
@@ -19,10 +18,8 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   # testing dependencies
-
   s.add_development_dependency "rspec"
   s.add_development_dependency "webmock"
-
 
 
   # real dependencies
