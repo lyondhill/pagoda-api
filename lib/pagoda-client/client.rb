@@ -68,15 +68,15 @@ module Pagoda
       process(:get, uri, extra_headers)
     end
 
-    def post(uri, payload="", extra_headers={})    
+    def post(uri, payload="", extra_headers={})
       process(:post, uri, extra_headers, payload)
     end
 
-    def put(uri, payload="", extra_headers={})    
+    def put(uri, payload="", extra_headers={})
       process(:put, uri, extra_headers, payload)
     end
 
-    def delete(uri, extra_headers={})    
+    def delete(uri, extra_headers={})
       process(:delete, uri, extra_headers)
     end
 

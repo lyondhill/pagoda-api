@@ -86,12 +86,42 @@ describe Pagoda::Client do
       @client.app_deploy('testapp', "master", "1abs3d432").code.should == 200
     end
 
-    it ""
-
-
-
-    
   end
 
+  it "should have more functionality added" do
+    pending("additional functionality needed to make this a real client")
+  end
 
+  describe "database" do
+    
+    it "can tell if a database exists or not" do
+      stub = {:error => "what are you doing? get outa here"}
+      stub_api_request(:get, "/apps/app/databases/db").to_return(status: 200,body: stub)
+      @client.database_exists?("app", "db").should == true
+    end
+
+    it "returns false if a database doesnt exist" do
+      stub = {:error => "what are you doing? get outa here"}
+      stub_api_request(:get, "/apps/app/databases/nodb").to_return(status: 404, body: stub)
+      @client.database_exists?("app", "nodb").should == false
+    end
+
+    it "lists databases for an application" do
+      stub = [
+        {:id => '1', :name => 'carrie', :type => 'mysql', :ram => 10 },
+        {:id => '2', :name => 'cherisse', :type => 'mongodb', :ram => 512}
+      ]
+      stub_api_request(:get, "/apps/app/databases").to_return(body: stub.to_json)
+      @client.database_list("app").should == stub
+    end
+
+    it "creates a new database" do
+      stub_api_request(:post, "/apps/app/databases").to_return(status: 200)
+      @client.database_create("app").code.should == 200
+    end
+
+
+
+  end
+  
 end

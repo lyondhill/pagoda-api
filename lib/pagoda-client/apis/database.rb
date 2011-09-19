@@ -3,11 +3,11 @@ module Pagoda
     module Database
 
       def database_list(app)
-        get("/apps/#{app}/databases")
+        json get("/apps/#{app}/databases")
       end
 
       def database_info(app, database)
-        get("/apps/#{app}/databases/#{database}")
+        json get("/apps/#{app}/databases/#{database}")
       end
 
       def database_create(app)
