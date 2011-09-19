@@ -8,16 +8,20 @@ require 'pagoda-client/apis/componant'
 require 'pagoda-client/apis/billing'
 require 'pagoda-client/apis/email'
 require 'pagoda-client/apis/collaborator'
+require 'pagoda-client/apis/database'
 
 module Pagoda
   class Client
     VERSION = "0.0.1"
+
+    # Mix ins (cleaner)
     include Api::App
     include Api::User
     include Api::Componant
     include Api::Billing
     include Api::Email
     include Api::Collaborator
+    include Api::Database
 
     attr_reader :user, :password
 
@@ -36,11 +40,15 @@ module Pagoda
       end
     end
 
-    def on_warning(&blk)
-      @warning_callback = blk
-    end
+    # def on_warning(&blk)
+    #   @warning_callback = blk
+    # end
 
     def valid_credentials?
+      get("users/#{user}")
+      true
+    rescue RestClient::Unauthorized
+      false
       #will poke pagoda and validate credentials
     end
 

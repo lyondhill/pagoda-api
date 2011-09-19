@@ -30,6 +30,66 @@ describe Pagoda::Client do
       stub_api_request(:get, "/apps").to_return(body: stub.to_json)
       @client.app_list.should == stub
     end
+
+    it "collects informationt about the app" do
+      stub = {
+        :name => "App",
+        :git_url => "github.com",
+        :owner => {
+          :username => "lyon",
+          :email => "lyon@pagodabox.com"
+        },
+        :collaborators => [
+          {
+            :username => "tyler",
+            :email => "tyler@pagodabox.com"
+          },
+          {
+            :username => "clay",
+            :email => "clay@pagodabox.com"
+          }
+        ]
+        }
+      stub_api_request(:get, "/apps/app").to_return(body: stub.to_json)
+      @client.app_info("app").should == stub
+    end
+
+    it "show the transaction list for an app" do
+      stub = [
+        {:id => '1', :name => 'app.increment', :description => 'spawn new instance of app', :state => 'started', :status => nil},
+        {:id => '2', :name => 'app.deploy', :description => 'deploy code', :state => 'ready', :status => nil}
+      ]
+      stub_api_request(:get, "/apps/testapp/transactions").to_return(:body => stub.to_json)
+      @client.app_transaction_list('testapp').should == stub
+    end
+
+    it "lists transaction details" do
+      stub = {
+        :id => '123', 
+        :name => 'app.increment', 
+        :description => 'spawn new instance of app', 
+        :state => 'started', 
+        :status => nil}
+      stub_api_request(:get, "/apps/testapp/transactions/123").to_return(:body => stub.to_json)
+      @client.app_transaction_info('testapp', '123').should == stub
+    end
+
+    it "deploys lastest" do
+      stub = {:id => '1', :name => 'app.deploy', :description => 'deploy new code', :state => 'started', :status => nil}
+      stub_api_request(:post, "/apps/testapp/deploy").to_return(:body => stub.to_json)
+      @client.app_deploy_latest('testapp').code.should == 200
+    end
+
+    it "deploys to a specific branch and commit" do
+      stub = {:id => '1', :name => 'app.deploy', :description => 'deploy new code', :state => 'started', :status => nil}
+      stub_api_request(:post, "/apps/testapp/deploy").to_return(:body => stub.to_json)
+      @client.app_deploy('testapp', "master", "1abs3d432").code.should == 200
+    end
+
+    it ""
+
+
+
     
   end
 
