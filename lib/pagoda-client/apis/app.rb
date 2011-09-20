@@ -35,11 +35,11 @@ module Pagoda
         json post("/apps", {:app => {:name => name, :git_url => git_url}})
       end
 
-      def scale_up(app, qty=1)
+      def app_scale_up(app, qty=1)
         put("/apps/#{app}/scale-up", {:quantity => qty})
       end
       
-      def scale_down(app, qty=1)
+      def app_scale_down(app, qty=1)
         put("/apps/#{app}/scale-down", {:quantity => qty})
       end
 

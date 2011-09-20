@@ -1,6 +1,7 @@
 require 'json'
-require 'pagoda-client'
 require 'webmock'
+
+require 'pagoda-client'
 
 include WebMock::API
 
@@ -18,7 +19,12 @@ describe Pagoda::Client do
 
   it "does stuff" do
     @client.hello_buddy.should == true
+  end  
+
+  it "should have more functionality added" do
+    pending("additional functionality needed to make this a real client")
   end
+
 
   describe "app" do
 
@@ -86,10 +92,16 @@ describe Pagoda::Client do
       @client.app_deploy('testapp', "master", "1abs3d432").code.should == 200
     end
 
-  end
+    it "scales up" do
+      stub_api_request(:put, "/apps/testapp/scale-up").with(:body => {"quantity"=>"1"})
+      @client.app_scale_up('testapp').code.should == 200
+    end
 
-  it "should have more functionality added" do
-    pending("additional functionality needed to make this a real client")
+    it "scales down" do
+      stub_api_request(:put, "/apps/testapp/scale-down").with(:body => {"quantity"=>"3"})
+      @client.app_scale_down('testapp', 3).code.should == 200
+    end
+
   end
 
   describe "database" do

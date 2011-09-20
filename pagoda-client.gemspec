@@ -20,6 +20,7 @@ Gem::Specification.new do |s|
   # testing dependencies
   s.add_development_dependency "rspec"
   s.add_development_dependency "webmock"
+  # s.add_development_dependency "simplecov"
 
 
   # real dependencies
