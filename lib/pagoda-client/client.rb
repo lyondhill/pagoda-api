@@ -55,7 +55,7 @@ module Pagoda
     def host
       "https://api.pagodabox.com"
     end
-
+    
   protected
 
     def resource(uri)
@@ -98,6 +98,6 @@ module Pagoda
     def json(content)
       JSON.parse(content, :symbolize_names => true)
     end
-
+    
   end  
 end
