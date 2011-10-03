@@ -40,12 +40,8 @@ module Pagoda
       end
     end
 
-    # def on_warning(&blk)
-    #   @warning_callback = blk
-    # end
-
     def valid_credentials?
-      get("users/#{user}")
+      get("/apps")
       true
     rescue RestClient::Unauthorized
       false
@@ -53,9 +49,9 @@ module Pagoda
     end
 
     def host
-      "https://api.pagodabox.com"
+      "http://localhost:3000" #184.173.69.133"
     end
-    
+
   protected
 
     def resource(uri)
@@ -88,7 +84,7 @@ module Pagoda
     
     def pagoda_headers
       {
-        'User-Agent'           => self.class.gem_version_string,
+        'User-Agent'           => "self.class.gem_version_string",
         'X-Ruby-Version'       => RUBY_VERSION,
         'X-Ruby-Platform'      => RUBY_PLATFORM,
         'Accept'               => 'application/json'
@@ -98,6 +94,6 @@ module Pagoda
     def json(content)
       JSON.parse(content, :symbolize_names => true)
     end
-    
+
   end  
 end

@@ -2,17 +2,15 @@ module Pagoda
   module Api
     module App
 
-      def hello_buddy
-        true
-      end
-
-
 #############
 #  Get
 #############
+      def app_available?(app)
+        json get("/apps/#{app}/available.json")
+      end
 
       def app_list
-        json get("/apps")
+        json get("/apps.json")
       end
 
       def app_info(app)
@@ -28,12 +26,9 @@ module Pagoda
       end
 
 #############
-#  Post
+#  put
 #############
 
-      def app_create(name, git_url)
-        json post("/apps", {:app => {:name => name, :git_url => git_url}})
-      end
 
       def app_scale_up(app, qty=1)
         put("/apps/#{app}/scale-up", {:quantity => qty})
@@ -43,24 +38,28 @@ module Pagoda
         put("/apps/#{app}/scale-down", {:quantity => qty})
       end
 
+      def app_update(app, updates)
+        put("/apps/#{app}", {:app => updates}).to_s
+      end
+
       
 #############
-#  Put
+#  post
 #############
+      def app_create(name)
+        json post("/apps", {:app => {:name => name}})
+      end
+
       def app_deploy_latest(app)
-        post("/apps/#{app}/deploy")
+        post("/apps/#{app}/deploys")
       end
 
       def app_deploy(app, branch, commit)
-        post("/apps/#{app}/deploy", {:deploy => {:branch => branch, :commit => commit}})
+        post("/apps/#{app}/deploys", {:deploy => {:git_branch => branch, :commit => commit}})
       end
 
-      def app_rewind(app)
-        json get("/apps/#{app}/deploys/rewind")
-      end
-
-      def app_update(app, updates)
-        put("/apps/#{app}", {:update => updates}).to_s
+      def app_rollback(app)
+        json post("/apps/#{app}/deploys/rollback")
       end
 
       def app_fast_forward(app)
@@ -73,7 +72,7 @@ module Pagoda
 #############
 
       def app_destroy(app)
-        delete("apps/#{app}")
+        delete("/apps/#{app}.json")
       end
 
     end
