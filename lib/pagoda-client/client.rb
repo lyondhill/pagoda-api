@@ -13,7 +13,7 @@ require 'pagoda-client/apis/database'
 
 module Pagoda
   class Client
-    VERSION = "0.0.1"
+    VERSION = "0.1.0"
 
     # Mix ins (cleaner)
     include Api::App
