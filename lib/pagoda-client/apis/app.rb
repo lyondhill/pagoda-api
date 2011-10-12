@@ -17,14 +17,6 @@ module Pagoda
         json get("/apps/#{app}")
       end
 
-      def app_transaction_list(app)
-        json get("/apps/#{app}/transactions")
-      end
-
-      def app_transaction_info(app, transaction)
-        json get("/apps/#{app}/transactions/#{transaction}")
-      end
-
 #############
 #  put
 #############
@@ -47,7 +39,8 @@ module Pagoda
 #  post
 #############
       def app_create(name)
-        json post("/apps", {:app => {:name => name}})
+        user_id = user_info[:id]
+        json post("/apps", {:app => {:name => name, :owner_id => user_id}})
       end
 
       def app_deploy_latest(app)

@@ -8,6 +8,7 @@ require 'pagoda-client/apis/componant'
 require 'pagoda-client/apis/billing'
 require 'pagoda-client/apis/email'
 require 'pagoda-client/apis/collaborator'
+require 'pagoda-client/apis/transaction'
 require 'pagoda-client/apis/database'
 
 module Pagoda
@@ -21,6 +22,7 @@ module Pagoda
     include Api::Billing
     include Api::Email
     include Api::Collaborator
+    include Api::Transaction
     include Api::Database
 
     attr_reader :user, :password
@@ -40,6 +42,10 @@ module Pagoda
       end
     end
 
+    def api_key
+      user_info[:authentication_token]
+    end
+
     def valid_credentials?
       get("/apps")
       true
@@ -49,7 +55,7 @@ module Pagoda
     end
 
     def host
-      "http://localhost:3000" #184.173.69.133"
+      "https://dashboard.newpagodabox.com"
     end
 
   protected
@@ -84,7 +90,7 @@ module Pagoda
     
     def pagoda_headers
       {
-        'User-Agent'           => "self.class.gem_version_string",
+        'User-Agent'           => self.class.gem_version_string,
         'X-Ruby-Version'       => RUBY_VERSION,
         'X-Ruby-Platform'      => RUBY_PLATFORM,
         'Accept'               => 'application/json'

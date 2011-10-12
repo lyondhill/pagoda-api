@@ -17,10 +17,6 @@ describe Pagoda::Client do
     @client = Pagoda::Client.new("user","password")
   end
 
-  it "does stuff" do
-    @client.hello_buddy.should == true
-  end  
-
   it "should have more functionality added" do
     pending("additional functionality needed to make this a real client")
   end
